@@ -28,6 +28,7 @@ for source in "$repo_dir/source/"*.typ; do
     exit 1
   fi
 
+  typst compile "$source" "$staging_dir/$filename"
 done
 
 for pdf in "$staging_dir/"*.pdf; do

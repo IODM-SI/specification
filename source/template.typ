@@ -30,6 +30,5 @@
 }
 
 #let iodm(publication: none, subtitle: "Tehnična specifikacija", body) = {
-  let filename = publication.id + "-v" + publication.version + ".pdf"
-  document(filename, iodm-pdf(publication, subtitle, body))
+  iodm-pdf(publication, subtitle, body)
 }
