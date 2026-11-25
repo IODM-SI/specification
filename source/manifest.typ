@@ -1,5 +1,5 @@
 #import "template.typ": iodm
-#let publication = (id: "IODM-007", version: "0.3")
+#let publication = (id: "IODM-007", version: "0.4")
 #show: iodm.with(publication: publication, subtitle: "Elektronski manifest dostopnih medijev")
 = 1. Namen
 <namen>
@@ -29,7 +29,7 @@ certificateSha256 je 64 velikih hex znakov nad DER končnega potrdila.
   "credentials": [{
     "iodmId": "000100001234",
     "formFactor": "card",
-    "profile": "IODM-001/0.3",
+    "profile": "IODM-001/0.4",
     "certificateSha256": "<64 HEX>"
   }]
 }

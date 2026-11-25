@@ -1,5 +1,5 @@
 #import "template.typ": iodm
-#let publication = (id: "IODM-WP-001", version: "0.3")
+#let publication = (id: "IODM-WP-001", version: "0.4")
 #show: iodm.with(publication: publication, subtitle: "Odprta in interoperabilna kontrola dostopa")
 = Povzetek
 <povzetek>

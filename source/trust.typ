@@ -1,5 +1,5 @@
 #import "template.typ": iodm
-#let publication = (id: "IODM-005", version: "0.3")
+#let publication = (id: "IODM-005", version: "0.4")
 #show: iodm.with(publication: publication, subtitle: "Register zaupanja vrednih izdajateljev")
 = 1. Namen
 <namen>

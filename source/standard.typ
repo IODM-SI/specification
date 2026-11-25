@@ -1,5 +1,5 @@
 #import "template.typ": iodm
-#let publication = (id: "IODM-001", version: "0.3")
+#let publication = (id: "IODM-001", version: "0.4")
 #show: iodm.with(publication: publication, subtitle: "Tehnična specifikacija dostopnega medija")
 = 1. Predmet in področje uporabe
 <predmet-in-področje-uporabe>
@@ -413,7 +413,7 @@ obseg uporabe.
 
 Obvezna polja registra, vključno z IID, statusi in prstnimi odtisi
 potrdil, določa IODM-005. Profil registra je vezan na izdajo
-IODM-001/0.3. Podatki o preklicu posameznih potrdil so dostopni prek
+IODM-001/0.4. Podatki o preklicu posameznih potrdil so dostopni prek
 CRL/OCSP.
 
 == 10.2 Sprejem izdajatelja

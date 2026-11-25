@@ -9,9 +9,9 @@ Za gradnjo potrebujete Typst CLI 0.15 ali novejši in pisavo DejaVu Sans. Ukaz
 lahko podate drugo izhodno mapo, na primer `./build.sh ./izvoz`.
 
 V glavi vsake izvorne datoteke sta identifikator in različica, na primer
-`#let publication = (id: "IODM-001", version: "0.3")`. Predloga uporabi
+`#let publication = (id: "IODM-001", version: "0.4")`. Predloga uporabi
 obe vrednosti v dokumentu, gradnja pa iz njiju sestavi ime
-`IODM-001-v0.3.pdf`.
+`IODM-001-v0.4.pdf`.
 
 Spletna stran pripne revizijo tega repozitorija kot podmodul `standards`.
 

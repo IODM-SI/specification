@@ -1,5 +1,5 @@
 #import "template.typ": iodm
-#let publication = (id: "IODM-004", version: "0.3")
+#let publication = (id: "IODM-004", version: "0.4")
 #show: iodm.with(publication: publication, subtitle: "Zahteve za izdajatelje dostopnih medijev")
 = 1. Namen in normativne osnove
 <namen-in-normativne-osnove>

@@ -1,5 +1,5 @@
 #import "template.typ": iodm
-#let publication = (id: "IODM-002", version: "0.3")
+#let publication = (id: "IODM-002", version: "0.4")
 #show: iodm.with(publication: publication, subtitle: "Ugotavljanje skladnosti dostopnih medijev")
 = 1. Predmet in področje uporabe
 <predmet-in-področje-uporabe>
