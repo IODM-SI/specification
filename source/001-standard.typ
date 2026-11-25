@@ -4,11 +4,11 @@
 = 1. Predmet in področje uporabe
 <predmet-in-področje-uporabe>
 IODM \(Interoperabilni dostopni medij) določa profil brezstičnih
-poverilnic za fizično kontrolo dostopa. Namen je omogočiti uporabo
-medijev različnih proizvajalcev z enotnim bralnikom brez skupnih
-simetričnih skrivnosti. Profil določa komunikacijo, obliko potrdila in
-dokaz posedovanja zasebnega ključa; ne določa upravljanja vrat, pravic
-dostopa ali personalizacijskega protokola.
+medijev (kartic, obeskov, ...) za fizično kontrolo dostopa. Namen
+standarda je omogočiti uporabo medijev različnih proizvajalcev z bralniki
+različnih proizvajalcev sistemov kontrole dostopa (SKD).
+Profil določa komunikacijo, obliko potrdila in dokaz posedovanja
+zasebnega ključa.
 
 Beseda #strong[MORA] označuje obvezno zahtevo, #strong[NAJ] priporočilo
 in #strong[LAHKO] dovoljeno možnost. Skladnost s tem osnutkom ne pomeni
@@ -25,19 +25,18 @@ standardov.
 - FIPS 186-5, FIPS 180-4 in NIST SP 800-186: ECDSA, SHA-256 in P-256.
 
 Profil APDU in podpisnega sporočila je zasnovan na mehanizmu MIFARE DUOX
-ISOInternalAuthenticate, opisanem v dokumentu MF3E\(H)x3, rev. 1.2, 10.
-7. 2025, razdelkih 7.5.7 in 8.2.3. Ta dokument ni potreben za
-implementacijo IODM. IODM ni standard ISO ali izdelek NXP.
+ISOInternalAuthenticate, vendar je podporo standarda mogoče implementirati
+tudi na drugih platformah (recimo JavaCard).
 
 = 3. Arhitektura in podatkovni model
 <arhitektura-in-podatkovni-model>
 Medij hrani potrdilo izdajatelja in pripadajoči zasebni ključ. Bralnik
-preveri potrdilo, izvede izziv in preveri podpis. Sistem za kontrolo
+preveri potrdilo, generira in pošlje izziv in preveri podpis. Sistem za kontrolo
 dostopa \(SKD) nato odloči o pravici dostopa na podlagi identitete
 poverilnice in lokalne politike.
 
 #table(
-  columns: (0.16fr, 0.41fr, 0.43fr),
+  columns: (0.25fr, 0.41fr, 0.43fr),
   align: (col, row) => (auto,auto,auto,).at(col),
   inset: 6pt,
   [Objekt], [Identifikator], [Zahteva],

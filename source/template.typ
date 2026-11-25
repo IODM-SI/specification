@@ -1,4 +1,4 @@
-#let iodm(publication: none, subtitle: "Tehnična specifikacija", body) = {
+#let iodm-pdf(publication, subtitle, body) = {
   set page(
     paper: "a4",
     margin: (x: 22mm, top: 24mm, bottom: 22mm),
@@ -12,7 +12,10 @@
   set text(font: "DejaVu Sans", size: 10pt, lang: "sl")
   set par(justify: false, leading: 0.65em)
   show heading: set text(fill: rgb("12354A"))
-  show raw.where(block: true): it => block(fill: rgb("EDF3F5"), inset: 9pt, radius: 3pt, width: 100%, text(size: 9pt, it))
+  show raw.where(block: true): it => block(fill: rgb("EDF3F5"), inset: 9pt, radius: 3pt, width: 100%, text(
+    size: 9pt,
+    it,
+  ))
   let cover-id = publication.id.replace(regex("^IODM-"), "IODM / ")
   text(size: 16pt, weight: "bold", fill: rgb("007E82"))[#cover-id]
   v(34mm)
@@ -24,4 +27,9 @@
   [*Različica:* #publication.version · delovni osnutek \ *Datum:* 25. november 2026 \ *Spletno mesto:* iodm.si]
   pagebreak()
   body
+}
+
+#let iodm(publication: none, subtitle: "Tehnična specifikacija", body) = {
+  let filename = publication.id + "-v" + publication.version + ".pdf"
+  document(filename, iodm-pdf(publication, subtitle, body))
 }

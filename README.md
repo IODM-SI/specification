@@ -13,8 +13,6 @@ V glavi vsake izvorne datoteke sta identifikator in različica, na primer
 obe vrednosti v dokumentu, gradnja pa iz njiju sestavi ime
 `IODM-001-v0.4.pdf`.
 
-Spletna stran pripne revizijo tega repozitorija kot podmodul `standards`.
-
 ## GitHub Actions
 
 Potek **Build specification PDFs** pri vsakem zahtevku za združitev (PR)
