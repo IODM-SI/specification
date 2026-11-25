@@ -1,0 +1,84 @@
+name: Build specification PDFs
+
+on:
+  pull_request:
+  push:
+    tags: ["**"]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    outputs:
+      revision: ${{ steps.compile.outputs.revision }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: typst-community/setup-typst@v5.3.2
+        with:
+          typst-version: "0.15.1"
+      - name: Install DejaVu Sans
+        run: sudo apt-get install -y fonts-dejavu-core
+      - name: Compile PDFs
+        id: compile
+        run: |
+          export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"
+          ./build.sh dist/pdfs
+          echo "revision=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: iodm-pdfs
+          path: dist/pdfs/*.pdf
+          if-no-files-found: error
+
+  release:
+    if: github.ref_type == 'tag' && (github.event_name == 'push' || github.event_name == 'release')
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    concurrency:
+      group: publication-release-${{ github.ref }}
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: iodm-pdfs
+          path: dist/pdfs
+      - name: Publish PDF assets
+        id: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if release="$(gh release view --json assets,isDraft -- "$RELEASE_TAG")"; then
+            assets="$(jq -r '.assets[].name' <<< "$release")"
+            for pdf in dist/pdfs/*.pdf; do
+              if ! grep -Fxq -- "${pdf##*/}" <<< "$assets"; then
+                gh release upload -- "$RELEASE_TAG" "$pdf"
+              fi
+            done
+            echo "published=$(jq -r '.isDraft | not' <<< "$release")" >> "$GITHUB_OUTPUT"
+          else
+            gh release create --verify-tag --generate-notes -- "$RELEASE_TAG" dist/pdfs/*.pdf
+            echo 'published=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Trigger website update
+        if: steps.publish.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.WEBSITE_RELEASE_TOKEN }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_SHA: ${{ needs.build.outputs.revision }}
+        run: |
+          if [[ -z "$GH_TOKEN" ]]; then
+            echo '::error::Set WEBSITE_RELEASE_TOKEN to a token with Actions write access to IODM-SI/website.'
+            exit 1
+          fi
+          gh workflow run update-specification.yml --repo IODM-SI/website --ref main \
+            --raw-field "tag=$RELEASE_TAG" --raw-field "revision=$RELEASE_SHA"

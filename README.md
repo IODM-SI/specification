@@ -16,3 +16,12 @@ Priloženi PDF-ji različice 0.3 so bili preneseni iz obstoječe spletne
 strani IODM. Gre za prvotne nadomestne izvoze Pandoc/XeLaTeX.
 
 Spletna stran pripne revizijo tega repozitorija kot podmodul `standards`.
+
+## GitHub Actions
+
+Potek **Build specification PDFs** pri vsakem zahtevku za združitev (PR)
+izdela PDF-je in jih shrani kot artefakt `iodm-pdfs` v zagonu GitHub Actions.
+Potisk oznake Git ustvari izdajo in ji priloži PDF-je. Objavljena izdaja
+sproži tudi potek `update-specification.yml` v repozitoriju `IODM-SI/website`.
+Za ta klic nastavite skrivnost `WEBSITE_RELEASE_TOKEN` na žeton z dovoljenjem
+Actions (write), omejen na repozitorij `website`.
