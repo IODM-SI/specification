@@ -1,5 +1,6 @@
 #import "template.typ": iodm
-#show: iodm.with(code: "005", subtitle: "Register zaupanja vrednih izdajateljev")
+#let publication = (id: "IODM-005", version: "0.3")
+#show: iodm.with(publication: publication, subtitle: "Register zaupanja vrednih izdajateljev")
 = 1. Namen
 <namen>
 IODM-005 določa javni register potrjenih izdajateljev, CA in

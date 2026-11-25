@@ -1,5 +1,6 @@
 #import "template.typ": iodm
-#show: iodm.with(code: "002", subtitle: "Ugotavljanje skladnosti dostopnih medijev")
+#let publication = (id: "IODM-002", version: "0.3")
+#show: iodm.with(publication: publication, subtitle: "Ugotavljanje skladnosti dostopnih medijev")
 = 1. Predmet in področje uporabe
 <predmet-in-področje-uporabe>
 IODM-002 določa ugotavljanje skladnosti dostopnega medija. Preskuša se

@@ -1,5 +1,6 @@
 #import "template.typ": iodm
-#show: iodm.with(code: "006", subtitle: "Identifikacija medijev in integracija s SKD")
+#let publication = (id: "IODM-006", version: "0.3")
+#show: iodm.with(publication: publication, subtitle: "Identifikacija medijev in integracija s SKD")
 = 1. Namen
 <namen>
 IODM-006 določa enolično identiteto medija in posredovanje preverjene

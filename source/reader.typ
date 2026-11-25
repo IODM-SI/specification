@@ -1,5 +1,6 @@
 #import "template.typ": iodm
-#show: iodm.with(code: "003", subtitle: "Ugotavljanje skladnosti čitalnikov")
+#let publication = (id: "IODM-003", version: "0.3")
+#show: iodm.with(publication: publication, subtitle: "Ugotavljanje skladnosti čitalnikov")
 = 1. Predmet in področje uporabe
 <predmet-in-področje-uporabe>
 IODM-003 določa ugotavljanje skladnosti čitalnika in pripadajoče

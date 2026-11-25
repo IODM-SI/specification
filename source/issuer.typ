@@ -1,5 +1,6 @@
 #import "template.typ": iodm
-#show: iodm.with(code: "004", subtitle: "Zahteve za izdajatelje dostopnih medijev")
+#let publication = (id: "IODM-004", version: "0.3")
+#show: iodm.with(publication: publication, subtitle: "Zahteve za izdajatelje dostopnih medijev")
 = 1. Namen in normativne osnove
 <namen-in-normativne-osnove>
 IODM-004 določa pogoje za potrditev izdajatelja in vpis njegovih CA v

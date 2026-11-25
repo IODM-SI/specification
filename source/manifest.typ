@@ -1,5 +1,6 @@
 #import "template.typ": iodm
-#show: iodm.with(code: "007", subtitle: "Elektronski manifest dostopnih medijev")
+#let publication = (id: "IODM-007", version: "0.3")
+#show: iodm.with(publication: publication, subtitle: "Elektronski manifest dostopnih medijev")
 = 1. Namen
 <namen>
 IODM-007 določa prenos podatkov o izdanih medijih za množični uvoz v

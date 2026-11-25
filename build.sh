@@ -3,13 +3,38 @@ set -eu
 
 repo_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 output_dir=${1:-"$repo_dir/pdf"}
-mkdir -p "$output_dir"
+mkdir -p -- "$output_dir"
+staging_dir=$(mktemp -d -- "$output_dir/.iodm-build.XXXXXX")
+trap 'rm -f -- "$staging_dir/"*.pdf; rmdir -- "$staging_dir"' EXIT
+trap 'exit 1' HUP INT TERM
 
-typst compile "$repo_dir/source/standard.typ" "$output_dir/IODM-001-v0.3.pdf"
-typst compile "$repo_dir/source/card.typ" "$output_dir/IODM-002-v0.3.pdf"
-typst compile "$repo_dir/source/reader.typ" "$output_dir/IODM-003-v0.3.pdf"
-typst compile "$repo_dir/source/issuer.typ" "$output_dir/IODM-004-v0.3.pdf"
-typst compile "$repo_dir/source/trust.typ" "$output_dir/IODM-005-v0.3.pdf"
-typst compile "$repo_dir/source/identity.typ" "$output_dir/IODM-006-v0.3.pdf"
-typst compile "$repo_dir/source/manifest.typ" "$output_dir/IODM-007-v0.3.pdf"
-typst compile "$repo_dir/source/whitepaper.typ" "$output_dir/IODM-WP-001-v0.3.pdf"
+for source in "$repo_dir/source/"*.typ; do
+  [ "${source##*/}" = template.typ ] && continue
+
+  filename=$(typst eval --root "$repo_dir" --format yaml \
+    --input "filename=${source##*/}" '{
+      import ("/source/" + sys.inputs.filename): publication
+      let safe = regex("^[A-Za-z0-9][A-Za-z0-9._-]*$")
+      assert(publication.id.match(safe) != none, message: "Invalid publication ID")
+      assert(publication.version.match(safe) != none, message: "Invalid publication version")
+      publication.id + "-v" + publication.version + ".pdf"
+    }') || {
+      printf 'Could not read publication metadata in %s\n' "$source" >&2
+      exit 1
+    }
+
+  if [ -e "$staging_dir/$filename" ]; then
+    printf 'Duplicate publication filename: %s\n' "$filename" >&2
+    exit 1
+  fi
+
+  typst compile "$source" "$staging_dir/$filename"
+done
+
+for pdf in "$staging_dir/"*.pdf; do
+  if [ ! -f "$pdf" ]; then
+    printf '%s\n' 'No publication PDFs were generated.' >&2
+    exit 1
+  fi
+  mv -f -- "$pdf" "$output_dir/"
+done

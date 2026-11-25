@@ -1,5 +1,6 @@
 #import "template.typ": iodm
-#show: iodm.with(code: "WP-001", subtitle: "Odprta in interoperabilna kontrola dostopa")
+#let publication = (id: "IODM-WP-001", version: "0.3")
+#show: iodm.with(publication: publication, subtitle: "Odprta in interoperabilna kontrola dostopa")
 = Povzetek
 <povzetek>
 IODM je predlog odprtega tehničnega profila, ki ločuje dostopni medij,

@@ -1,5 +1,6 @@
 #import "template.typ": iodm
-#show: iodm.with(code: "001", subtitle: "Tehnična specifikacija dostopnega medija")
+#let publication = (id: "IODM-001", version: "0.3")
+#show: iodm.with(publication: publication, subtitle: "Tehnična specifikacija dostopnega medija")
 = 1. Predmet in področje uporabe
 <predmet-in-področje-uporabe>
 IODM \(Interoperabilni dostopni medij) določa profil brezstičnih
